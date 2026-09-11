@@ -21,15 +21,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             throw new RuntimeException('Mot de passe admin : 10 caractères minimum.');
         }
 
+        // Connexion à la base déjà créée (hébergeur / XAMPP)
         $pdo = new PDO(
-            sprintf('mysql:host=%s;port=%s;charset=utf8mb4', $db['host'], $db['port']),
+            sprintf(
+                'mysql:host=%s;port=%s;dbname=%s;charset=utf8mb4',
+                $db['host'],
+                $db['port'],
+                $db['database']
+            ),
             $db['username'],
             $db['password'],
             [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
         );
 
-        $schema = file_get_contents(__DIR__ . '/database/schema.sql');
-        $seed = file_get_contents(__DIR__ . '/database/seed.sql');
+        $stripDbDirectives = static function (string $sql): string {
+            $sql = preg_replace('/CREATE\s+DATABASE\s+.*?;/is', '', $sql) ?? $sql;
+            $sql = preg_replace('/USE\s+[`\w]+\s*;/i', '', $sql) ?? $sql;
+            return trim($sql);
+        };
+
+        $schema = $stripDbDirectives((string) file_get_contents(__DIR__ . '/database/schema.sql'));
+        $seed = $stripDbDirectives((string) file_get_contents(__DIR__ . '/database/seed.sql'));
         $pdo->exec($schema);
         $pdo->exec($seed);
 
