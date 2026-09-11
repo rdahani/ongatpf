@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin/
+Disallow: /app/
+Disallow: /config/
+Disallow: /database/
+Disallow: /storage/
+
+Sitemap: http://localhost/ongatpf/sitemap.xml

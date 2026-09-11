@@ -1,0 +1,32 @@
+# Environnement / secrets
+.env
+.env.*
+!.env.example
+
+# Dépendances
+node_modules/
+vendor/
+
+# Uploads utilisateurs (garder la structure)
+uploads/*
+!uploads/.gitkeep
+
+# Cache / stockage temporaire
+storage/cache/*
+!storage/cache/.gitkeep
+storage/logs/*
+!storage/logs/.gitkeep
+storage/sessions/*
+!storage/sessions/.gitkeep
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+Desktop.ini
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log

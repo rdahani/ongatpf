@@ -1,0 +1,8 @@
+{
+  "name": "ongatpf",
+  "private": true,
+  "description": "Site institutionnel ATPF – design system Sahel",
+  "scripts": {
+    "build:css": "echo Design system disponible dans assets/css/app.css"
+  }
+}
